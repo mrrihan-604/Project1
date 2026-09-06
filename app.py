@@ -11,6 +11,14 @@ from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
 
 
+def make_one_hot_encoder():
+    """Create an encoder compatible with old and new scikit-learn releases."""
+    try:
+        return OneHotEncoder(handle_unknown="ignore", sparse_output=False)
+    except TypeError:
+        return OneHotEncoder(handle_unknown="ignore", sparse=False)
+
+
 # ==========================================
 # 1. MODEL TRAINING PIPELINE
 # ==========================================
@@ -59,7 +67,7 @@ def load_and_train_model():
             "cat",
             Pipeline([
                 ("imputer", SimpleImputer(strategy="most_frequent")),
-                ("encoder", OneHotEncoder(handle_unknown="ignore", sparse_output=False))
+                ("encoder", make_one_hot_encoder())
             ]),
             cat_cols
         ))

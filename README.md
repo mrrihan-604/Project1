@@ -43,6 +43,18 @@ These metrics describe this dataset and split; they are not a guarantee of perfo
 
 ## Running the Project
 
+### Teammate Setup
+
+Use Python 3.9 or newer, then run these commands from the cloned project folder in PowerShell:
+
+```powershell
+py -3 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -r requirements.txt
+```
+
+The `.venv` folder is intentionally excluded from Git because virtual environments contain machine-specific binaries. `requirements.txt` installs compatible package versions, and the code supports both old and new scikit-learn encoder APIs.
+
 Activate the project environment in PowerShell:
 
 ```powershell

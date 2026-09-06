@@ -21,6 +21,14 @@ METRICS_PATH = PROJECT_DIR / "model_metrics.csv"
 PREDICTIONS_PATH = PROJECT_DIR / "test_predictions.csv"
 
 
+def make_one_hot_encoder():
+    """Create an encoder compatible with old and new scikit-learn releases."""
+    try:
+        return OneHotEncoder(handle_unknown="ignore", sparse_output=False)
+    except TypeError:
+        return OneHotEncoder(handle_unknown="ignore", sparse=False)
+
+
 def build_pipeline(numeric_features: list[str], categorical_features: list[str]) -> Pipeline:
     transformers = []
 
@@ -47,9 +55,7 @@ def build_pipeline(numeric_features: list[str], categorical_features: list[str])
                         ("imputer", SimpleImputer(strategy="most_frequent")),
                         (
                             "encoder",
-                            OneHotEncoder(
-                                handle_unknown="ignore", sparse_output=False
-                            ),
+                            make_one_hot_encoder(),
                         ),
                     ]
                 ),
