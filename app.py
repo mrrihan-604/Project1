@@ -15,7 +15,7 @@ from sklearn.impute import SimpleImputer
 # 1. MODEL TRAINING PIPELINE
 # ==========================================
 def load_and_train_model():
-    dataset_name = "house_price_prediction_dataset.csv"
+    dataset_name = os.path.join(os.path.dirname(__file__), "house_price_prediction_dataset.csv")
 
     if os.path.exists(dataset_name):
         try:
@@ -36,8 +36,8 @@ def load_and_train_model():
     X = df.drop(columns=[target_col])
     y = df[target_col]
 
-    # Select top 5 primary predictive features
-    features = list(X.columns[:5])
+    # Exclude the identifier and use every available property feature.
+    features = [column for column in X.columns if column != "House_ID"]
     X = X[features]
 
     num_cols = X.select_dtypes(include=[np.number]).columns.tolist()

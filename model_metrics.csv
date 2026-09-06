@@ -1,0 +1,2 @@
+model,test_size,random_state,features,mae,rmse,r2
+LinearRegression,0.2,42,"Square_Feet, Bedrooms, Bathrooms, Floors, Year_Built, Location, Condition",23574.82431747348,30269.34625328457,0.9484772557088772
